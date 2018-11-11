@@ -13,7 +13,7 @@ Ce TP est une introduction à Node JS consistant à mettre en place une premièr
 Fonctionnement
 --------------
 
-###Pour lancer le serveur:  
+#Pour lancer le serveur:  
 Utiliser la commande:
 node .\index.js
 
