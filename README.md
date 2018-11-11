@@ -13,29 +13,31 @@ Ce TP est une introduction à Node JS consistant à mettre en place une premièr
 Fonctionnement
 --------------
 
-#Pour lancer le serveur:  
+### Pour lancer le serveur:  
 Utiliser la commande:
 node .\index.js
 
 
-###Les 3 routes de notre applications sont:  
+### Les 3 routes de notre applications sont:  
 
+'''
 * localhost:8080/
 * localhost:8080/hello?name=romain
 * localhost:8080/hello?name=xxx
+'''
 
-###Page home  
+### Page home  
 Accessible via :localhost:8080/  
 Cette page vous décrit le fonctionnement de l'application.
 
-###Page Hello romain  
+### Page Hello romain  
 Accessible via: localhost:8080/hello?name=romain  
 Cette page vous montre présentation de moi même
 
-###Page Hello xxx  
+### Page Hello xxx  
 Avec xxx un prénom aléatoire  
 Accessible via: localhost:8080/hello?name=xxx  
 Cette page salut xxx
 
-###Autres pages
+### Autres pages
 Une erreur 404 sera affichée
