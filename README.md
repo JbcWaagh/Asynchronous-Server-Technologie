@@ -15,16 +15,17 @@ Fonctionnement
 
 ### Pour lancer le serveur:  
 Utiliser la commande:
+```
 node .\index.js
-
+```
 
 ### Les 3 routes de notre applications sont:  
 
-'''
+```
 * localhost:8080/
 * localhost:8080/hello?name=romain
 * localhost:8080/hello?name=xxx
-'''
+```
 
 ### Page home  
 Accessible via :localhost:8080/  
