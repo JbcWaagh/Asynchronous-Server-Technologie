@@ -12,16 +12,16 @@ Ce TP consiste à utiliser le framework ExpressJS
 Fonctionnement
 --------------
 
-### Pour lancer le serveur:  
-Utiliser la commande:
-```
-node .\index.js
-```
-
 ### Pour installer ExpressJS:
 Utiliser la commande:  
 ```
 nmp i express
+```
+
+### Pour lancer le serveur:  
+Utiliser la commande:
+```
+node .\index.js
 ```
 
 ### Pour accéder à l'application
