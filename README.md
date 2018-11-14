@@ -1,13 +1,12 @@
-Romain Michau
 
 
-Asynchronous Server Technologies TP1
-======================================
+Asynchronous Server Technologies
+================================
 
 
 Introduction
 ------------
-Ce TP est une introduction à Node JS consistant à mettre en place une première application contenant 3 routes.
+Ce TP consiste à utiliser le framework ExpressJS
 
 
 Fonctionnement
@@ -19,12 +18,24 @@ Utiliser la commande:
 node .\index.js
 ```
 
+### Pour installer ExpressJS:
+Utiliser la commande:  
+```
+nmp i express
+```
+
+### Pour accéder à l'application
+Dans votre navigateur tapé
+```
+localhost:8080
+```
+
 ### Les 3 routes de notre applications sont:  
 
 ```
 * localhost:8080/
-* localhost:8080/hello?name=romain
-* localhost:8080/hello?name=xxx
+* localhost:8080/hello/romain
+* localhost:8080/hello/xxx
 ```
 
 ### Page home  
@@ -39,3 +50,7 @@ Cette page salut xxx
 
 ### Autres pages
 Une erreur 404 sera affichée
+
+Auteur:
+------
+Romain Michau
