@@ -3,8 +3,8 @@ app = express()
 
 
 const mesInfo="Bonjour, je suis Romain un etudiant de l'ECE en cybersecurite";
-const descSite="Bienvenue sur Hello. \n Pour plus d'information sur moi rejoignez l'url '/hello' avec mon nom (romain) comme parametre 'name'.  Exemple: localhost:8080/hello?name=romain\n "+
-  				"Sinon vous pouvez mettre le votre pour que je vous salue";
+const descSite="Bienvenue sur Hello. \n Pour plus d'information sur moi rejoignez l'url '/hello' avec mon nom (romain) comme parametre.  Exemple: localhost:8080/hello/romain "+
+  				" \n Sinon vous pouvez mettre le votre pour que je vous salue";
 const helloInc="Hello my friend";
 const e404='Erreur 404: Ressource not found :(';
 
@@ -29,7 +29,6 @@ app.get(
     }
   }
 )
-
 
 app.get(
   '/',
