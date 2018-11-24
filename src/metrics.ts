@@ -13,7 +13,7 @@ export class Metric {
 
 export class MetricsHandler {
   private db: any
-
+  private path: string
   constructor(dbPath: string) {
     this.db = LevelDb.open(dbPath)
   }
@@ -27,7 +27,8 @@ export class MetricsHandler {
     })
     stream.end()
   }
-  static get(callback: (error: Error | null, result?: Metric[]) => void) {
+  public get(callback: (error: Error | null, result?: Metric[]) => void) {
+    console.log("path=")
     const result = [
       new Metric('2013-11-04 14:00 UTC', 12),
       new Metric('2013-11-04 14:30 UTC', 15)
