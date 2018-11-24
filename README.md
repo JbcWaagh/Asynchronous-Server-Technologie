@@ -21,7 +21,7 @@ nmp i express
 ### Pour lancer le serveur:  
 Utiliser la commande:
 ```
-node .\index.js
+node start
 ```
 
 ### Pour accéder à l'application
@@ -30,27 +30,30 @@ Dans votre navigateur tapé
 localhost:8080
 ```
 
-### Les 3 routes de notre applications sont:  
+### Pour acceder à un metric:  
 
 ```
-* localhost:8080/
-* localhost:8080/hello/romain
-* localhost:8080/hello/xxx
+localhost:8080/metrics/'id_metric'
 ```
 
-### Page home  
-Cette page vous décrit le fonctionnement de l'application.
+###ajouter un metric:  
 
-### Page Hello romain  
-Cette page vous montre présentation de moi même
+Requete Post sur:
+```
+localhost:8080/metrics/'id_metric'
+```
+Mettre le metric dans le body
 
-### Page Hello xxx  
-Avec xxx un prénom aléatoire  
-Cette page salut xxx
 
-### Autres pages
-Une erreur 404 sera affichée
+###supprimer un metric:  
+
+Requete Delete sur:
+```
+localhost:8080/metrics/'id_metric'
+```
+
 
 Auteur:
 ------
 Romain Michau
+romain.michau@edu.ece.fr
