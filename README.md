@@ -36,7 +36,7 @@ localhost:8080
 localhost:8080/metrics/'id_metric'
 ```
 
-###ajouter un metric:  
+### Ajouter un metric:  
 
 Requete Post sur:
 ```
@@ -45,7 +45,7 @@ localhost:8080/metrics/'id_metric'
 Mettre le metric dans le body
 
 
-###supprimer un metric:  
+### Supprimer un metric:  
 
 Requete Delete sur:
 ```
