@@ -3,11 +3,9 @@
 Asynchronous Server Technologies
 ================================
 
+## Prérequis
 
-Introduction
-------------
-Ce TP consiste à utiliser le framework ExpressJS
-
+Cette application nécessite d'avoir NodejS
 
 Fonctionnement
 --------------
@@ -21,14 +19,9 @@ nmp i express
 ### Pour lancer le serveur:  
 Utiliser la commande:
 ```
-node start
+npm start
 ```
 
-### Pour accéder à l'application
-Dans votre navigateur tapé
-```
-localhost:8080
-```
 
 ### Pour acceder à un metric:  
 
@@ -51,6 +44,9 @@ Requete Delete sur:
 ```
 localhost:8080/metrics/'id_metric'
 ```
+
+### Version de nodeJS utilisé pour le développement
+v10.13.0
 
 
 Auteur:
