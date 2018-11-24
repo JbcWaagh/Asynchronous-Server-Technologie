@@ -18,7 +18,21 @@ export class MetricsHandler {
   }
 
 
-  
+  public delete(key: string,callback: (error: Error | null) => void){
+    const stream = this.db.createReadStream();
+
+    stream
+      .on("error", callback)
+      .on("end", (err: Error) => {
+        callback(null);
+      })
+      .on("data", (data: any) => {
+        this.db.del(data.key);
+
+   });
+  }
+
+
   public save(key: string, metrics: Metric[], callback: (error: Error | null) => void) {
     const stream = WriteStream(this.db)
     stream.on('error', callback)

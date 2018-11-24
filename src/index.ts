@@ -23,7 +23,14 @@ app.listen(port, (err: Error) => {
 })
 
 
-
+app.delete('/metrics/:id', (req: any, res: any) => {
+  metricsHandler.delete(req.params.id,(err: Error | null) => {
+    if (err) {
+      throw err
+    }
+    res.status(200).send();
+  })
+})
 
 app.post('/metrics/:id', (req: any, res: any) => {
   metricsHandler.save(req.params.id,req.body,(err: Error | null) => {
@@ -35,7 +42,7 @@ app.post('/metrics/:id', (req: any, res: any) => {
 })
 
 app.get('/metrics/:id', (req: any, res: any) => {
-  metricsHandler.get(req.params.id,(err: Error | null, result?: any) => {
+  metricsHandler.get(   req.params.id,(err: Error | null, result?: any) => {
     if (err) {
       throw err
     }
