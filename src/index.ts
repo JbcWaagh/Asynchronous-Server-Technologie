@@ -1,5 +1,5 @@
 import express = require('express')
-import { MetricsHandler,, Metric  } from './metrics'
+import { MetricsHandler, Metric  } from './metrics'
 
 const app = express()
 const port: string = process.env.PORT || '8080'
@@ -23,21 +23,24 @@ app.listen(port, (err: Error) => {
 })
 
 
+
+
 app.post('/metrics/:id', (req: any, res: any) => {
-  console.log("ok");
-  MetricsHandler.save(req.params.id,req.body,(err: Error | null) => {
+  metricsHandler.save(req.params.id,req.body,(err: Error | null) => {
     if (err) {
       throw err
     }
-    res.json(result)
+    res.status(200).send();
   })
 })
 
 app.get('/metrics/:id', (req: any, res: any) => {
-  MetricsHandler.get((err: Error | null, result?: any) => {
+  metricsHandler.get(req.params.id,(err: Error | null, result?: any) => {
     if (err) {
       throw err
     }
+    console.log("result:");
+    console.log(result);
     res.json(result)
   })
 })
