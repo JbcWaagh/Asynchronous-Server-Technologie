@@ -22,11 +22,11 @@ export class MetricsHandler {
     const stream = this.db.createReadStream();
 
     stream
-      .on("error", callback)
+      .on("error", callback) 
       .on("end", (err: Error) => {
         callback(null);
       })
-      .on("data", (data: any) => { 
+      .on("data", (data: any) => {
         this.db.del(data.key);
 
    });
