@@ -26,7 +26,7 @@ export class MetricsHandler {
       .on("end", (err: Error) => {
         callback(null);
       })
-      .on("data", (data: any) => {
+      .on("data", (data: any) => { 
         this.db.del(data.key);
 
    });
