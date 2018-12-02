@@ -11,10 +11,20 @@ export class Metric {
   }
 }
 
+
+
+
 export class MetricsHandler {
   private db: any
+  private dbPath:string
+
   constructor(dbPath: string) {
+    this.dbPath=dbPath
     this.db = LevelDb.open(dbPath)
+  }
+
+  public close(){
+
   }
 
 
@@ -22,11 +32,18 @@ export class MetricsHandler {
     const stream = this.db.createReadStream();
 
     stream
-      .on("error", callback) 
-      .on("end", (err: Error) => {
+      .on("error",(err: Error) => {
+    //    console.log("delete_error")
+        callback(err);
+      })
+
+      .on("end", () => {
+    //    console.log("delete_end")
         callback(null);
       })
+
       .on("data", (data: any) => {
+    //    console.log("delete_data")
         this.db.del(data.key);
 
    });
@@ -35,8 +52,19 @@ export class MetricsHandler {
 
   public save(key: string, metrics: Metric[], callback: (error: Error | null) => void) {
     const stream = WriteStream(this.db)
-    stream.on('error', callback)
-    stream.on('close', callback)
+    stream.on('error',(err: Error)=>{
+  //    console.log("Save_error")
+      callback(err)      })
+
+    .on('close', ()=>{
+  //    console.log("Save_close")
+      callback(null)
+      })
+
+    .on("end", () => {
+    //  console.log("Save_end")
+      callback(null);
+    })
     metrics.forEach(m => {
       stream.write({ key: `metric:${key}:${m.timestamp}`, value: m.value })
     })
@@ -50,15 +78,21 @@ export class MetricsHandler {
    var met: Metric[] = [];
 
    stream
-     .on("error", callback)
-     .on("end", (err: Error) => {
+     .on("error", (err: Error)=>{
+    //   console.log("error_get");
+       callback(err, met);
+     })
+
+     .on("end", () => {
+  //     console.log("end_get");
        callback(null, met);
      })
      .on("data", (data: any) => {
+    //   console.log("data_get");
        const [, key2, timestamp] = data.key.split(":");
        if (key === key2) {
-         console.log( "data:"+data+"\n timestamp:"+timestamp+"\n");
-         met.push(new Metric(timestamp, data.value));       }
+  //       console.log( "data:"+data+"\n timestamp:"+timestamp+"\n");
+         met.push(new Metric(timestamp, data.value))       }
 
   });
     }
