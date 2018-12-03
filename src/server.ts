@@ -10,37 +10,72 @@ var bodyParser = require('body-parser')
 const LevelStore = levelSession(session)
 const dbUser: UserHandler = new UserHandler('./db/users')
 const userRouter = express.Router()
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', "./views")
+app.set('view engine', 'ejs')
+
+app.use(session({
+    secret: 'my very secret phrase',
+    store: new LevelStore('./db/sessions'),
+    resave: true,
+    saveUninitialized: true
+}))
+
 const authCheck = function (req: any, res: any, next: any) {
   if (req.session.loggedIn) {
     next()
   } else res.redirect('/login')
 }
 
-app.get('/', authCheck, (req: any, res: any) => {
-  res.render('index', { name: req.session.username })
-})
-
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
-const metricsHandler= new MetricsHandler('./bdd');
+const metricsHandler= new MetricsHandler('./db/metrics');
 
-app.use(session({
-  secret: 'my very secret phrase',
-  store: new LevelStore('./db/sessions'),
-  resave: true,
-  saveUninitialized: true
-}))
+
+app.get('/', authCheck, (req: any, res: any) => {
+    res.render('index', { name: req.session.username })
+})
 
 app.get('/login', (req: any, res: any) => {
   res.render('login')
 })
+
+app.post('/login', (req: any, res: any, next: any) => {
+    dbUser.get(req.body.username, (err: Error | null, result?: User) => {
+        if (err) next(err)
+        if (result === undefined || !result.validatePassword(req.body.username)) {
+            res.redirect('/login')
+        } else {
+            req.session.loggedIn = true
+            req.session.user = result
+            res.redirect('/')
+        }
+    })
+})
+
+app.get('/signup',(req:any,res:any,next:any)=>{
+  res.render('signup')
+})
+
+app.post('/signup',(req:any,res:any,next:any)=>{
+    res.render('signup')
+})
+
+app.get('/logout', (req: any, res: any) => {
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect('/login')
+})
+
 
 app.get('/logout', (req: any, res: any) => {
   delete req.session.loggedIn
   delete req.session.user
   res.redirect('/login')
 })
+
+
 
 userRouter.post('/', (req: any, res: any, next: any) => {
     const { username, password, email } = req.body
@@ -62,21 +97,7 @@ userRouter.post('/', (req: any, res: any, next: any) => {
     })
   })
 
-//  app.use('/user', userRouter)
-
-
-app.post('/login', (req: any, res: any, next: any) => {
-dbUser.get(req.body.username, (err: Error | null, result?: User) => {
-  if (err) next(err)
-  if (result === undefined || !result.validatePassword(req.body.username)) {
-    res.redirect('/login')
-  } else {
-    req.session.loggedIn = true
-    req.session.user = result
-    res.redirect('/')
-  }
-})
-})
+app.use('/user', userRouter)
 
 app.get('/', (req: any, res: any) => {
   res.write('Hello world')

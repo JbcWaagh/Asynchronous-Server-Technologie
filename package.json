@@ -2,10 +2,12 @@
   "name": "tp1",
   "version": "1.0.0",
   "description": "TP de AST pour l'ECE Paris",
-  "main": "server.js",
+  "main": "./src/server.ts",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "del": "^3.0.0",
+    "ejs": "^2.6.1",
     "encoding-down": "^5.0.4",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
@@ -14,7 +16,7 @@
     "level-ws": "^1.0.0",
     "leveldown": "^4.0.1",
     "levelup": "^3.1.1",
-    "nodemon": "^1.18.6",
+    "nodemon": "^1.18.7",
     "travis": "^0.1.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
@@ -30,7 +32,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/ts-node src/server.ts",
-    "dev": "./node_modules/.bin/nodemon ",
+    "dev": "./node_modules/.bin/nodemon",
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "test": "./node_modules/.bin/mocha -r ts-node/register src/**/*.test.ts"
   },

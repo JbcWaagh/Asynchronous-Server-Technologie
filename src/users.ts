@@ -1,5 +1,6 @@
 import { LevelDb } from "./LevelDb"
 import WriteStream from 'level-ws'
+const bcrypt = require('bcrypt');
 
 export class User {
   public username: string
@@ -22,7 +23,8 @@ export class User {
 }
 
   public setPassword(toSet: string): void {
-    // Hash and set password
+     var hash=bcrypt.hashSync(toSet,10)
+      this.password=hash
   }
 
   public getPassword(): string {

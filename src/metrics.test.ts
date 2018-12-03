@@ -13,7 +13,7 @@ import {
 const a: number = 0
 
 
-const dbPath: string = 'db_test'
+const dbPath: string = 'db_test/metrics'
 var dbMet: MetricsHandler
 
 describe('Metrics', function() {
@@ -38,6 +38,10 @@ describe('Metrics', function() {
 
             dbMet.save("1", [{
                 timestamp: '1384686660000',
+                value: 11
+            },
+            {
+                timestamp: '13846586660000',
                 value: 11
             }], function(err: Error | null) {
                 expect(err).to.be.null
