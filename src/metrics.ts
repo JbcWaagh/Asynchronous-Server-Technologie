@@ -44,6 +44,7 @@ export class MetricsHandler {
 
             .on("data", (data: any) => {
                 //    console.log("delete_data")
+                if(data.key===key)
                 this.db.del(data.key);
 
             });
