@@ -1,3 +1,18 @@
-<button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
-  Logout
-</button>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include partials/head %>
+</head>
+  <body class="bg-light">
+    <div id="form">
+      <p>Welcome <%= name %> </p>
+
+      <a href="/auth/login">login</a>
+    </br>
+      <a href="/logout">logout</a>
+
+      <hr/>
+    </div>
+  </body>
+</html>

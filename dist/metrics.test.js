@@ -17,7 +17,6 @@ describe('Metrics', function () {
             dbMet.get("0", function (err, result) {
                 chai_1.expect(err).to.be.null;
                 chai_1.expect(result).to.not.be.undefined;
-                //  console.log("result:")
                 chai_1.expect(result).to.be.empty;
             });
         });
@@ -37,15 +36,12 @@ describe('Metrics', function () {
                 chai_1.expect(err).to.be.null;
                 chai_1.expect(result).to.not.be.undefined;
                 chai_1.expect(result).to.not.be.empty;
-                console.log(met[0]);
-                console.log(result);
                 chai_1.expect(ts).to.equal('1384686660000');
                 //  expect(val).to.equal(11)
             });
         });
     });
     after(function () {
-        //  console.log("fin")
         //  LevelDb.clear(dbPath)
     });
 });

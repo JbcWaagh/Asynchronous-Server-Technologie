@@ -18,14 +18,20 @@ export class User {
 
     }
 
-
-    static fromDb(data: any): User {
-        return new User("ss","kk","jj")
+    static fromDb(data:any): User {
+        const[email,password]=data.value.split(':')
+        const[,username]=data.key.split(':')
+        return new User(username, email, password,true)
     }
 
     public setPassword(toSet: string): void {
-        var hash=bcrypt.hashSync(toSet,10)
+        console.log("to set:"+toSet)
+        const hash=bcrypt.hashSync(toSet,10)
+        const hash2=bcrypt.hashSync(toSet,10)
+        console.log("to set hash1:"+hash)
+        console.log("to sethash2:"+hash2)
         this.password=hash
+      //  throw Error("error")
     }
 
     public getPassword(): string {
@@ -33,8 +39,8 @@ export class User {
     }
 
     public validatePassword(toValidate: String): boolean {
-        return bcrypt.compareSync(toValidate, this.getPassword());
-
+       //console.log("validatePassword:"+bcrypt.compareSync(toValidate, this.getPassword()))
+       return  bcrypt.compareSync(toValidate, this.getPassword()) // true
     }
 }
 
@@ -43,26 +49,28 @@ export class UserHandler {
     public db: any
 
     public get(username: string, callback: (err: Error | null, result?: User) => void) {
-     //   console.log("username:"+username)
-        this.listall(err => {})
-        this.db.get(`user:${username}`, function (err: Error|null, data: any) {
-            if (err) {
-                console.log(err)
-                callback(err)}
-            else
-                callback(null, User.fromDb(data))
-        })
+        const stream = this.db.createReadStream()
+        var user: User
+
+        stream
+            .on("error", (err: Error)=>{
+                callback(err)
+            })
+            .on("end", () => {
+                callback(null, user)
+            })
+            .on("data", (data: any) => {
+                const [, key2] = data.key.split(":")
+                if (username === key2) {
+                    user=User.fromDb(data)       }
+
+            })
     }
 
     public save(user: User, callback: (err: Error | null) => void) {
-        //   console.log("savr begin")
-
         this.db.put(`user:${user.username}`,`${user.email}:${user.getPassword()}`   ,(err: Error|null)=>{
             callback(err)
         })
-        //    console.log("savr dine")
-
-
     }
 
     public delete(username: string, callback: (err: Error | null) => void) {
@@ -81,9 +89,7 @@ export class UserHandler {
                 callback(null, users)
             })
             .on("data", (data: any) => {
-                const [, key2, timestamp] = data.key.split(":")
-                console.log(data)
-                users.push(new User("tst",'tst','d'))       }
+                users.push(User.fromDb(data))       }
             )
     }
     public  deleteall(callback: (err:Error|null,result?:any)=>void)

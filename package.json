@@ -18,6 +18,7 @@
     "level-ws": "^1.0.0",
     "leveldown": "^4.0.1",
     "levelup": "^3.1.1",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.7",
     "travis": "^0.1.1",
     "ts-node": "^7.0.1",

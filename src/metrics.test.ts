@@ -27,7 +27,6 @@ describe('Metrics', function() {
             dbMet.get("0", function(err: Error | null, result ? : Metric[]) {
                 expect(err).to.be.null
                 expect(result).to.not.be.undefined
-                //  console.log("result:")
                 expect(result).to.be.empty
             })
         })
@@ -62,7 +61,6 @@ describe('Metrics', function() {
 
 
     after(function() {
-        //  console.log("fin")
         //  LevelDb.clear(dbPath)
     })
 })

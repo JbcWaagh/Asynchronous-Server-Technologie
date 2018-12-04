@@ -16,7 +16,6 @@ app.listen(port, function (err) {
     if (err) {
         throw err;
     }
-    console.log("server is listening on port " + port);
 });
 app.delete('/metrics/:id', function (req, res) {
     metricsHandler.delete(req.params.id, function (err) {
@@ -27,8 +26,6 @@ app.delete('/metrics/:id', function (req, res) {
     });
 });
 app.post('/metrics/:id', function (req, res) {
-    console.log(req.body);
-    console.log(req.params.id);
     metricsHandler.save(req.params.id, req.body, function (err) {
         if (err) {
             throw err;
@@ -41,8 +38,6 @@ app.get('/metrics/:id', function (req, res) {
         if (err) {
             throw err;
         }
-        console.log("result:");
-        console.log(result);
         res.json(result);
     });
 });
