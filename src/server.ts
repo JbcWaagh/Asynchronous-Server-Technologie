@@ -4,6 +4,7 @@ import session = require('express-session')
 import levelSession = require('level-session-store')
 import { UserHandler, User } from './users'
 import morgan = require('morgan')
+const D3Node = require('d3-node')
 
 const app = express()
 const port: string = process.env.PORT || '8080'
@@ -11,8 +12,9 @@ const bodyParser = require('body-parser')
 const LevelStore = levelSession(session)
 const dbUser: UserHandler = new UserHandler('./db/users')
 const path = require('path')
+const d3n = new D3Node()
 
-const userRouter = express.Router()
+const metricsRouter = express.Router()
 const devRouter = express.Router()
 const authRouter = express.Router()
 
@@ -44,7 +46,7 @@ app.use(morgan('dev'))
 app.use(bodyParser.urlencoded())
 app.use(express.static(path.join(__dirname, '/../public')))
 
-app.use('/user', userRouter)
+app.use('/metrics', metricsRouter)
 app.use('/dev', devRouter)
 app.use('/auth', authRouter)
 
@@ -122,13 +124,52 @@ authRouter.get('/signup',(req:any,res:any,next:any)=>{
 ////////////////////////////////////////////////////////////////////
 
 
-userRouter.use(function (req: any, res: any, next: any) {
+metricsRouter.use(function (req: any, res: any, next: any) {
     authCheck(req,res,next)
 })
 
-userRouter.get('/',(req:any,res:any,next:any)=>{
-    console.log('user')
-    res.render('user')
+metricsRouter.get('/',(req:any,res:any,next:any)=>{
+//    res.render('index', {name: req.session.user.username})}
+    metricsHandler.get(req.session.user.username,(err: Error|null,metrics:any)=>{
+        if(err)
+            throw err
+        else{
+         //   console.log(metrics)
+
+            res.render('metrics',{metrics:metrics,graph:d3n.svgString()})}
+    })
+  //  console.log('metrics')
+
+})
+
+
+
+metricsRouter.post('/del/',(req:any,res:any,next:any)=>{
+   // console.log("dellete router")
+   // console.log(req.body.timestamp)
+    metricsHandler.delete(req.session.user.username,req.body.timestamp,(err: Error|null)=>{
+        if(err)
+            throw err
+        else{
+          //  console.log("delete")
+            //res.render('metrics',{metrics:metrics})}
+            res.redirect('/metrics/')
+        }
+
+    })
+    console.log('metrics')
+
+})
+
+
+metricsRouter.post ('/',(req:any,res:any,next:any)=>{
+    console.log("save metrics")
+    metricsHandler.save(req.session.user.username,[req.body],(err:Error|null)=>{
+        if(err)
+            res.status(401).send("le metrics n'a pas pu être sauvegardé" )
+        else
+            res.status(200).send()
+    })
 })
 
 
@@ -137,9 +178,16 @@ userRouter.get('/',(req:any,res:any,next:any)=>{
 ////gestion et au dev du projet                     /////////////
 ////////////////////////////////////////////////////////////////////
 
-devRouter.get('/ls',(req:any,res:any,next:any)=>{
+devRouter.get('/lsu',(req:any,res:any,next:any)=>{
     var listOfUser:any;
     dbUser.listall((err:Error|null,result:any)=>{
+        res.status(200).json(result)
+    })
+})
+
+devRouter.get('/lsm',(req:any,res:any,next:any)=>{
+    var listOfUser:any;
+    metricsHandler.list((err:Error|null,result:any)=>{
         res.status(200).json(result)
     })
 })

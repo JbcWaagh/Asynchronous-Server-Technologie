@@ -1,28 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <% include partials/head %>
-  </head>
-  <body class="bg-light">
-    <div id="form">
-      <p>Please login to your account</p>
-      <hr/>
-      <form action="/auth/login" method="post">
+</head>
+<body class="bg-light">
+<div id="form">
+    <p>Please login to your account</p>
+    <hr/>
+    <form action="/auth/login" method="post">
         <div class="form-group">
-          <label for="form_username">Username</label>
-          <input id="form_username" type="text" name="username" required="required" />
+            <label for="form_username">Username</label>
+            <input id="form_username" type="text" name="username" required="required"/>
         </div>
         <div class="form-group">
-          <label for="form_password">Password</label>
-          <input id="form_password" type="password" name="password" required="required"/>
+            <label for="form_password">Password</label>
+            <input id="form_password" type="password" name="password" required="required"/>
         </div>
         <button class="btn btn-primary btn-block" type="submit" value="submit">Connect</button>
-      </form>
-      <hr/>
-      <form action="/auth/signup" method="get">
+    </form>
+    <hr/>
+    <form action="/auth/signup" method="get">
         <button class="btn btn-success btn-block" type="submit">Create an account</button>
-      </form>
-    </div>
-  </body>
+    </form>
+</div>
+</body>
 </html>

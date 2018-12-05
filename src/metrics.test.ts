@@ -52,7 +52,7 @@ describe('Metrics', function() {
 
     describe('#Delete', function() {
         it('should delete a data', function(done) {
-            dbMet.delete('11', (err: Error | null) => {
+            dbMet.delete('11','13846586660000', (err: Error | null) => {
               expect(err).to.be.null
               done()
             })

@@ -28,9 +28,8 @@ export class MetricsHandler {
     }
 
 
-    public delete(key: string,callback: (error: Error | null) => void){
+    public delete(key: string,timestamp:string,callback: (error: Error | null) => void){
         const stream = this.db.createReadStream();
-
         stream
             .on("error",(err: Error) => {
                 callback(err);
@@ -41,8 +40,12 @@ export class MetricsHandler {
             })
 
             .on("data", (data: any) => {
-                if(data.key===key)
-                this.db.del(data.key);
+                const [, keyC, timestampC] = data.key.split(":")
+           //
+                if(keyC==key &&timestampC==timestamp){
+                    this.db.del(data.key)
+                }
+
 
             });
     }
@@ -82,6 +85,30 @@ export class MetricsHandler {
                 const [, key2, timestamp] = data.key.split(":")
                 if (key === key2) {
                     met.push(new Metric(timestamp, data.value))       }
+
+            })
+    }
+
+    public list( callback: (error: Error | null, result?: string[],resultkey?: string[]) => void) {
+
+        const stream = this.db.createReadStream()
+        var met: string[] = []
+        var resultkey: string[]=[];
+
+        stream
+            .on("error", (err: Error)=>{
+                callback(err, met)
+            })
+
+            .on("end", () => {
+                callback(null, met,resultkey)
+            })
+            .on("data", (data: any) => {
+                const [, key2, timestamp] = data.key.split(":")
+                {
+                    met.push(key2+" "+timestamp+"  "+data.value)
+                    resultkey.push(key2)
+                }
 
             })
     }

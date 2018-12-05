@@ -25,13 +25,8 @@ export class User {
     }
 
     public setPassword(toSet: string): void {
-        console.log("to set:"+toSet)
         const hash=bcrypt.hashSync(toSet,10)
-        const hash2=bcrypt.hashSync(toSet,10)
-        console.log("to set hash1:"+hash)
-        console.log("to sethash2:"+hash2)
         this.password=hash
-      //  throw Error("error")
     }
 
     public getPassword(): string {
@@ -39,7 +34,6 @@ export class User {
     }
 
     public validatePassword(toValidate: String): boolean {
-       //console.log("validatePassword:"+bcrypt.compareSync(toValidate, this.getPassword()))
        return  bcrypt.compareSync(toValidate, this.getPassword()) // true
     }
 }
@@ -69,6 +63,7 @@ export class UserHandler {
 
     public save(user: User, callback: (err: Error | null) => void) {
         this.db.put(`user:${user.username}`,`${user.email}:${user.getPassword()}`   ,(err: Error|null)=>{
+            if(err)
             callback(err)
         })
     }
