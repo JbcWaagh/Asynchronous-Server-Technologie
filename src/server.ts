@@ -4,7 +4,6 @@ import session = require('express-session')
 import levelSession = require('level-session-store')
 import { UserHandler, User } from './users'
 import morgan = require('morgan')
-const D3Node = require('d3-node')
 
 const app = express()
 const port: string = process.env.PORT || '8080'
@@ -12,7 +11,6 @@ const bodyParser = require('body-parser')
 const LevelStore = levelSession(session)
 const dbUser: UserHandler = new UserHandler('./db/users')
 const path = require('path')
-const d3n = new D3Node()
 
 const metricsRouter = express.Router()
 const devRouter = express.Router()
@@ -136,7 +134,7 @@ metricsRouter.get('/',(req:any,res:any,next:any)=>{
         else{
          //   console.log(metrics)
 
-            res.render('metrics',{metrics:metrics,graph:d3n.svgString()})}
+            res.render('metrics',{metrics:metrics})}
     })
   //  console.log('metrics')
 
