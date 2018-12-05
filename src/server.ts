@@ -155,18 +155,16 @@ metricsRouter.post('/del/',(req:any,res:any,next:any)=>{
         }
 
     })
-    console.log('metrics')
 
 })
 
 
 metricsRouter.post ('/',(req:any,res:any,next:any)=>{
-    console.log("save metrics")
     metricsHandler.save(req.session.user.username,[req.body],(err:Error|null)=>{
         if(err)
             res.status(401).send("le metrics n'a pas pu être sauvegardé" )
         else
-            res.status(200).send()
+            res.redirect('/metrics/')
     })
 })
 
