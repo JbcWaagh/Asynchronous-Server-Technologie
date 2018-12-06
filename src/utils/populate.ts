@@ -50,3 +50,5 @@ metricsHandler.save('alexandre',mfa,(err:Error|null)=>{
     if(err)
         throw err
 })
+
+console.log("populate done ✅")

@@ -4,7 +4,7 @@
     <% include partials/head %>
 </head>
 <body>
-<div id="form">
+<div>
     <hr/>
     <form action="/metrics/" method="post">
         <div class="form-group">
@@ -18,20 +18,44 @@
         <button class="btn btn-primary btn-block" type="submit" value="submit">Create</button>
     </form>
     <hr/>
-    <div class="card-text">
-        <% if (metrics) { %>
-        <ul>
-            <% metrics.forEach(d => { %>
-            <li>
-                <form action="/metrics/del/" method="post">
-                    timestamp: <%= d.timestamp %> <br/>
-                    value: <%= d.value %> <br/>
-                    <button value="<%= d.timestamp %>" type="submit" name="timestamp">delete</button>
-                </form>
-            </li>
-            <% }) %>
-        </ul>
-        <% } %>
+    <div >
+        <div class="inl">
+            <% if (metrics) { %>
+            <ul>
+                <% metrics.forEach(d => { %>
+                <li>
+                    <form action="/metrics/del/" method="post">
+                        timestamp: <%= d.timestamp %> <br/>
+                        value: <%= d.value %> <br/>
+                        <button value="<%= d.timestamp %>" type="submit" name="timestamp">delete</button>
+                    </form>
+                </li>
+                <% }) %>
+            </ul>
+            <% } %>
+        </div>
+            <svg width='5000' height='400' style="overflow : visible; " class="inl"></svg>
     </div>
+
 </div>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script>
+    var cdata = <%- JSON.stringify(metrics) %>
+    var adata = []
+    cdata.forEach(d => {
+        adata.push(d.value)
+    })
+    console.log(adata)
+    var barWidth = 70;
+    var bar = d3.select('svg')
+        .selectAll('rect')
+        .data(adata)
+        .enter()
+        .append('rect')
+        .attr('width', barWidth - 1)
+        .attr('height', function(d) {  return d*15; })
+        .attr('transform', function(d, i) {
+            return "translate(" + i * barWidth + ", 0) rotate(180)";
+        });
+</script>
 </body>

@@ -52,6 +52,8 @@ export class MetricsHandler {
 
 
     public save(key: string, metrics: Metric[], callback: (error: Error | null) => void) {
+
+        var value:number
         const stream = WriteStream(this.db)
         stream.on('error',(err: Error)=>{
             callback(err)      })
@@ -62,7 +64,18 @@ export class MetricsHandler {
                 callback(null);
             })
         metrics.forEach(m => {
-            stream.write({ key: `metric:${key}:${m.timestamp}`, value: m.value })
+
+           // console.log("type:"+typeof m.value)               // MyClass
+            if(typeof m.value==="string"){
+             //   console.log("string")
+                value=+m.value
+             //   console
+            }
+            else
+            {
+                value=m.value
+            }
+            stream.write({ key: `metric:${key}:${m.timestamp}`, value: value })
         })
         stream.end()
     }
