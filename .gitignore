@@ -1,7 +1,7 @@
-node_modules/
+node_modules
  
-old_source/
-db/
+old_source
+db
 db_test/
-oldsource/
-.idea/
+old_source
+.idea
