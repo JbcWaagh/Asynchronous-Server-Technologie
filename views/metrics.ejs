@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <% include partials/head %>
+    <script src="/js/Chart.bundle.min.js"> </script>
+
 </head>
 <body>
+Metric de l'utilisateur <%= user %>
+</br>
+<a href="/logout">logout</a>
+
 <div>
+
     <hr/>
     <form action="/metrics/" method="post">
         <div class="form-group">
@@ -34,28 +41,40 @@
             </ul>
             <% } %>
         </div>
-            <svg width='5000' height='400' style="overflow : visible; " class="inl"></svg>
+        <canvas id="myChart" width="400" height="80"></canvas>
     </div>
 
 </div>
-<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
-    var cdata = <%- JSON.stringify(metrics) %>
-    var adata = []
-    cdata.forEach(d => {
-        adata.push(d.value)
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var metrics = <%- JSON.stringify(metrics) %>
+    var ts=[]
+    var values=[]
+    metrics.forEach(metrics=>{
+        ts.push(metrics.timestamp)
+        values.push(metrics.value)
     })
-    console.log(adata)
-    var barWidth = 70;
-    var bar = d3.select('svg')
-        .selectAll('rect')
-        .data(adata)
-        .enter()
-        .append('rect')
-        .attr('width', barWidth - 1)
-        .attr('height', function(d) {  return d*15; })
-        .attr('transform', function(d, i) {
-            return "translate(" + i * barWidth + ", 0) rotate(180)";
-        });
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ts,
+            datasets: [{
+                label: '',
+                data: values,
+
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
 </script>
 </body>
