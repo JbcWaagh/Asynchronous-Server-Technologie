@@ -28,7 +28,7 @@ describe('Users', function() {
     })
 
     describe('#save', function() {
-        it('should save data', function() {
+        it('should save user', function() {
             dbUser.save(new User("username_tst","username_tst@mail.fr","password_tst"), (err: Error | null)=> {
                 expect(err).to.be.null
             })
@@ -36,7 +36,7 @@ describe('Users', function() {
     })
 
     describe('#Delete', function() {
-        it('should delete a data', function() {
+        it('should delete a user', function() {
             dbUser.delete('username_tst', (err: Error | null) => {
                 expect(err).to.be.null
             })

@@ -46,6 +46,8 @@ Metric de l'utilisateur <%= user %>
 
 </div>
 <script>
+    // Réalisé avec chartJS
+    //réalisé avec l'aide du site suivant : https://www.chartjs.org/docs/latest/
     var ctx = document.getElementById("myChart").getContext('2d');
 
     var metrics = <%- JSON.stringify(metrics) %>

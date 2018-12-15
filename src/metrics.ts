@@ -28,6 +28,7 @@ export class MetricsHandler {
     }
 
 
+    //Supression d'un metric
     public delete(key: string,timestamp:string,callback: (error: Error | null) => void){
         const stream = this.db.createReadStream();
         stream
@@ -50,7 +51,7 @@ export class MetricsHandler {
             });
     }
 
-
+    //Sauvegarde d'un metric
     public save(key: string, metrics: Metric[], callback: (error: Error | null) => void) {
 
         var value:number
@@ -80,7 +81,7 @@ export class MetricsHandler {
         stream.end()
     }
 
-
+    ///Recuperation de metrics correspondant à une key
     public get(key:string, callback: (error: Error | null, result?: Metric[]) => void) {
 
         const stream = this.db.createReadStream()
@@ -102,6 +103,7 @@ export class MetricsHandler {
             })
     }
 
+    ///recuperation de tous les metrics (uniquement pour le dev)
     public list( callback: (error: Error | null, result?: string[],resultkey?: string[]) => void) {
 
         const stream = this.db.createReadStream()

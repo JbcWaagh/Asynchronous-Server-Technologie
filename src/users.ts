@@ -42,6 +42,8 @@ export class User {
 export class UserHandler {
     public db: any
 
+
+    //Getter de user
     public get(username: string, callback: (err: Error | null, result?: User) => void) {
         const stream = this.db.createReadStream()
         var user: User
@@ -61,6 +63,8 @@ export class UserHandler {
             })
     }
 
+
+    //Sauvegarde d'un User
     public save(user: User, callback: (err: Error | null) => void) {
         this.db.put(`user:${user.username}`,`${user.email}:${user.getPassword()}`   ,(err: Error|null)=>{
             if(err)
@@ -68,9 +72,9 @@ export class UserHandler {
         })
     }
 
-    public delete(username: string, callback: (err: Error | null) => void) {
-        // TODO
-    }
+
+
+    ///Fonction pour listé tous les users (fonction utilisé pour le dev)
     public  listall(callback: (err:Error|null,result?:any)=>void)
     {
         const stream = this.db.createReadStream()
@@ -87,6 +91,8 @@ export class UserHandler {
                 users.push(User.fromDb(data))       }
             )
     }
+
+    ///Supression de tous les users (fonction utilisé uniquement pour le dev)
     public  deleteall(callback: (err:Error|null,result?:any)=>void)
     {
         const stream = this.db.createReadStream()
