@@ -5,16 +5,26 @@ Asynchronous Server Technologies
 
 ## Prérequis
 
-Cette application nécessite d'avoir NodejS
+Cette application nécessite d'avoir NodejS d'installé
 
 Fonctionnement
 --------------
 
-### Pour installer ExpressJS:
-Utiliser la commande:  
+### Installations des outils :
 ```
-nmp i express
+npm install
 ```
+
+### lancer les test unitaires:
+```
+npm test
+```
+
+###  Pour remplir la DB :
+```
+npm run populate
+```
+
 
 ### Pour lancer le serveur:  
 Utiliser la commande:
@@ -22,28 +32,28 @@ Utiliser la commande:
 npm start
 ```
 
+### Comptes utilisateurs par défaut:
+login: romain
+mdp: secretr 
 
-### Pour acceder à un metric:  
+login: farice
+mdp: secretf 
 
-```
-localhost:8080/metrics/'id_metric'
-```
+login: alexandre 
+mdp: secreta
 
-### Ajouter un metric:  
+###routes:
+####auth (connexion ou création de compte)
+http://localhost:8080/auth/signup   
+http://localhost:8080/auth/login  
 
-Requete Post sur:
-```
-localhost:8080/metrics/'id_metric'
-```
-Mettre le metric dans le body
+####Page Home
+http://localhost:8080/
+
+####metrics (page pour voir les metrics de l'utilisateur) 
+http://localhost:8080/metrics
 
 
-### Supprimer un metric:  
-
-Requete Delete sur:
-```
-localhost:8080/metrics/'id_metric'
-```
 
 ### Version de nodeJS utilisé pour le développement
 v10.13.0
