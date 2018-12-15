@@ -42,15 +42,15 @@ mdp: secretf
 login: alexandre 
 mdp: secreta
 
-###routes:
-####auth (connexion ou création de compte)
+### routes:
+#### auth (connexion ou création de compte)
 http://localhost:8080/auth/signup   
 http://localhost:8080/auth/login  
 
-####Page Home
+#### Page Home
 http://localhost:8080/
 
-####metrics (page pour voir les metrics de l'utilisateur) 
+#### metrics (page pour voir les metrics de l'utilisateur) 
 http://localhost:8080/metrics
 
 
