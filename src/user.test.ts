@@ -35,11 +35,11 @@ describe('Users', function() {
         })
     })
 
-    describe('#Delete', function() {
+   /* describe('#Delete', function() {
         it('should delete a user', function() {
             dbUser.delete('username_tst', (err: Error | null) => {
                 expect(err).to.be.null
             })
         })
-    })
+    })*/
 })
